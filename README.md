@@ -20,7 +20,7 @@ Example Usage
 -------------
     # Change to the Git repository directory.
 
-    $ git log --oneline			# Find out your commit hash
+    $ git log --oneline			        # Find out your commit hash
     $ git-code-checkin -c <commit-hash>	# Use the -c or --commit option and paste the commit hash
 
-    # Copied HTML text in clipboard is ready to be pasted in your e-mail's 'Compose' window.
+    # Paste the HTML text in clipboard to your e-mail's 'Compose' window.
