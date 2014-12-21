@@ -24,6 +24,7 @@ def main():
 
     hash = args.Hash
 
+    # Git commands to get all the required information
     list_changed_files_cmd = "git diff-tree --no-commit-id --name-status -r -M {}".format(hash)
     commit_in_branch_cmd = "git branch -r --contains {}".format(hash)
     commit_hash_and_message_cmd = "git log --pretty=oneline | grep {}".format(hash)
@@ -33,6 +34,7 @@ def main():
 
     files_list = str(out, encoding="utf_8").splitlines()
 
+    # Maintain separate changed file lists for easier looping
     for file in files_list:
         if file.startswith('A'):
             changed_files_dict["New"].append(file)
@@ -45,6 +47,7 @@ def main():
         else:
             pass
 
+    # Get additional inputs
     try:
         project = input("Project: ") or "N/A"
         reviewed_by = input("Code/Unit Test Reviewed By: ") or "N/A"
@@ -58,10 +61,12 @@ def main():
     pipe = subprocess.Popen(commit_in_branch_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     out, err = pipe.communicate()
 
+    # Create a new string that consists of all the branches a commit is in
     branch_list = str(out, encoding="utf_8").splitlines()
     branch_list = [branch.strip() for branch in branch_list]
     branches = ', '.join(branch_list)
 
+    # Write an HTML file in user's 'Desktop'
     with open("{}/Desktop/checkin.html".format(os.getenv("HOME")), 'w') as out_file:
         pipe = subprocess.Popen(commit_hash_and_message_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         out, err = pipe.communicate()
@@ -112,7 +117,8 @@ def main():
                 out_file.write("<div><br></div>")
 
         out_file.write("Regards,")
-        out_file.close()
-        os.system("xclip -selection clipboard -t text/html {}/Desktop/checkin.html".format(os.getenv("HOME")))
+
+    # Copy the generated HTML to clipboard
+    os.system("xclip -selection clipboard -t text/html {}/Desktop/checkin.html".format(os.getenv("HOME")))
 
 if __name__ == "__main__": main()
