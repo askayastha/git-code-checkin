@@ -3,24 +3,24 @@ git-code-checkin
 
 git-code-checkin is a Python script for automating Git code check-in e-mails. Currently, it works only with Python 3 on Linux. Soon, it will be cross-platform and support Python 2.
 
-Ashish Kayastha kayastha.ashish@ymail.com
+Author: Ashish Kayastha <kayastha.ashish@ymail.com>
 
 Dependencies
-============
-Linux >= 2.6
-Python >= 3.0
+------------
+* Linux >= 2.6
+* Python >= 3.0
 
 Install
-=======
-# Change to the extracted directory.
+-------
+    # Change to the extracted directory.
 
-$ sh install_git_code_checkin.sh
+    $ sh install_git_code_checkin.sh
 
 Example Usage
-=============
-# Change to the Git repository directory.
+-------------
+    # Change to the Git repository directory.
 
-$ git log --oneline			# Find out your commit hash
-$ git-code-checkin -c <commit-hash>	# Use the -c or --commit option and paste the commit hash
+    $ git log --oneline			# Find out your commit hash
+    $ git-code-checkin -c <commit-hash>	# Use the -c or --commit option and paste the commit hash
 
-# Copied HTML text in clipboard is ready to be pasted in your 'Compose' window.
+    # Copied HTML text in clipboard is ready to be pasted in your 'Compose' window.
