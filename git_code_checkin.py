@@ -8,7 +8,6 @@ import subprocess
 import collections
 import sys
 import os
-#import pyperclip
 
 changed_files_dict = collections.OrderedDict()
 
@@ -47,12 +46,12 @@ def main():
             pass
 
     try:
+        project = input("Project: ") or "N/A"
         reviewed_by = input("Code/Unit Test Reviewed By: ") or "N/A"
         qat_by = input("QAT By: ") or "N/A"
         summary = input("Summary: ") or "N/A"
         impacts = input("Impacts: ") or "N/A"
         notes = input("Notes: ") or "N/A"
-        #branch = input("Branch: ") or "N/A"
     except KeyboardInterrupt:
         sys.exit()
 
@@ -70,7 +69,7 @@ def main():
         commit = str(out, encoding="utf_8").split(' ', 1)
         commit_hash, commit_message = tuple(commit)
 
-        out_file.write("<div><b>Project:</b>&nbsp;Benecore</div>")
+        out_file.write("<div><b>Project:</b>&nbsp;{}</div>".format(project))
         out_file.write("<div><br></div>")
         out_file.write("<div><b>Task:</b>&nbsp;{}</div>".format(commit_message.split(':')[0].strip('\n')))
         out_file.write("<div><br></div>")
@@ -112,14 +111,8 @@ def main():
 
                 out_file.write("<div><br></div>")
 
-        #out_file.write("<br>")
         out_file.write("Regards,")
         out_file.close()
-
-        # with open("{}/Desktop/checkin.html".format(os.getenv("HOME")), 'r') as out_file:
-        #     pyperclip.copy(out_file.read())
-        #     out_file.close()
-
         os.system("xclip -selection clipboard -t text/html {}/Desktop/checkin.html".format(os.getenv("HOME")))
 
 if __name__ == "__main__": main()
