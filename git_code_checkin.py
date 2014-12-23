@@ -74,25 +74,43 @@ def main():
         commit = str(out, encoding="utf_8").split(' ', 1)
         commit_hash, commit_message = tuple(commit)
 
+        # Header
+        out_file.write("<div><div style=\"color: rgb(34, 34, 34);\"><h2 style=\"font-family: 'Lucida Grande', verdana, arial, helvetica, sans-serif; padding: 12px 20px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(174, 204, 215); color: rgb(68, 68, 68); border-top-width: 1px; border-top-style: solid; border-top-color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; letter-spacing: -1px; background-image: url(https://ci5.googleusercontent.com/proxy/uePTVeN_JgVYsynEuyhDhbtB0mD6pTiFux95naGYnCiLzO_SBt6a9vE8hEb0LMrlNECS1JSVZeGt9mZ5ERQSUV8Br9Z9sOisA5P1AQ0hHkT3ze3ZPNEfnyjoZKFuRuEy-21EDuAPoa8=s0-d-e1-ft#https://deermine.deerwalk.com/themes/deerwalk-blue/images/smooth-gradient-blue.jpg); background-color: rgb(234, 242, 245);\">{}</h2></div></div>".format(commit_message.strip('\n')))
+        out_file.write("<div><br></div>")
+
+        # Project
         out_file.write("<div><b>Project:</b>&nbsp;{}</div>".format(project))
         out_file.write("<div><br></div>")
+
+        # Task
         out_file.write("<div><b>Task:</b>&nbsp;{}</div>".format(commit_message.split(':')[0].strip('\n')))
         out_file.write("<div><br></div>")
 
-        out_file.write("<div><div style=\"color: rgb(34, 34, 34);\"><h2 style=\"font-family: 'Lucida Grande', verdana, arial, helvetica, sans-serif; padding: 12px 20px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(174, 204, 215); color: rgb(68, 68, 68); border-top-width: 1px; border-top-style: solid; border-top-color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; letter-spacing: -1px; background-image: url(https://ci5.googleusercontent.com/proxy/uePTVeN_JgVYsynEuyhDhbtB0mD6pTiFux95naGYnCiLzO_SBt6a9vE8hEb0LMrlNECS1JSVZeGt9mZ5ERQSUV8Br9Z9sOisA5P1AQ0hHkT3ze3ZPNEfnyjoZKFuRuEy-21EDuAPoa8=s0-d-e1-ft#https://deermine.deerwalk.com/themes/deerwalk-blue/images/smooth-gradient-blue.jpg); background-color: rgb(234, 242, 245);\">{}</h2></div></div>".format(commit_message.strip('\n')))
-        out_file.write("<div><br></div>")
+        # Code/Unit Test Reviewed By
         out_file.write("<div><b>Code/Unit Test Reviewed By:</b>&nbsp;{}</div>".format(reviewed_by))
         out_file.write("<div><br></div>")
+
+        # QAT By
         out_file.write("<div><b>QAT By:</b>&nbsp;{}</div>".format(qat_by))
         out_file.write("<div><br></div>")
+
+        # Summary
         out_file.write("<div><b>Summary:</b>&nbsp;{}</div>".format(summary))
         out_file.write("<div><br></div>")
+
+        # Impacts
         out_file.write("<div><b>Impacts:</b>&nbsp;{}</div>".format(impacts))
         out_file.write("<div><br></div>")
+
+        # Notes
         out_file.write("<div><b>Notes:</b>&nbsp;{}</div>".format(notes))
         out_file.write("<div><br></div>")
+
+        # Git Branch
         out_file.write("<div><b>Git Branch:</b>&nbsp;{}</div>".format(branches))
         out_file.write("<div><br></div>")
+
+        # Commit Hash
         out_file.write("<div><b>Commit Hash:</b>&nbsp;{}</div>".format(commit_hash))
         out_file.write("<div><br></div>")
 
