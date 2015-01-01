@@ -116,7 +116,7 @@ def main():
 
         for header, file_list in changed_files_dict.items():
             if len(file_list) != 0:
-                out_file.write("<div><b>{} Files:</b><div>".format(header))
+                out_file.write("<div><b>{} Files:</b></div>".format(header))
 
                 for file in file_list:
                     i = 0
@@ -134,7 +134,7 @@ def main():
 
                 out_file.write("<div><br></div>")
 
-        out_file.write("Regards,")
+        out_file.write("<div>Regards,</div>")
 
     # Copy the generated HTML to clipboard
     os.system("xclip -selection clipboard -t text/html {}/Desktop/checkin.html".format(os.getenv("HOME")))
