@@ -8,6 +8,7 @@ import subprocess
 import collections
 import sys
 import os
+import re
 
 changed_files_dict = collections.OrderedDict()
 
@@ -15,6 +16,8 @@ changed_files_dict["New"] = list()
 changed_files_dict["Modified"] = list()
 changed_files_dict["Renamed"] = list()
 changed_files_dict["Deleted"] = list()
+
+deermine_base_link = "https://deermine.deerwalk.com/issues/"
 
 def main():
     # Parse arguments
@@ -74,8 +77,15 @@ def main():
         commit = str(out, encoding="utf_8").split(' ', 1)
         commit_hash, commit_message = tuple(commit)
 
+        pattern = re.compile("(?<=#)\d+")
+
         # Header
-        out_file.write("<div><div style=\"color: rgb(34, 34, 34);\"><h2 style=\"font-family: 'Lucida Grande', verdana, arial, helvetica, sans-serif; padding: 12px 20px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(174, 204, 215); color: rgb(68, 68, 68); border-top-width: 1px; border-top-style: solid; border-top-color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; letter-spacing: -1px; background-image: url(https://ci5.googleusercontent.com/proxy/uePTVeN_JgVYsynEuyhDhbtB0mD6pTiFux95naGYnCiLzO_SBt6a9vE8hEb0LMrlNECS1JSVZeGt9mZ5ERQSUV8Br9Z9sOisA5P1AQ0hHkT3ze3ZPNEfnyjoZKFuRuEy-21EDuAPoa8=s0-d-e1-ft#https://deermine.deerwalk.com/themes/deerwalk-blue/images/smooth-gradient-blue.jpg); background-color: rgb(234, 242, 245);\">{}</h2></div></div>".format(commit_message.strip('\n')))
+        if re.search(pattern, commit_message):
+            deermine_id = pattern.findall(commit_message)[0]
+            out_file.write("<div><div style=\"color: rgb(34, 34, 34);\"><h2 style=\"font-family: 'Lucida Grande', verdana, arial, helvetica, sans-serif; padding: 12px 20px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(174, 204, 215); color: rgb(68, 68, 68); border-top-width: 1px; border-top-style: solid; border-top-color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; letter-spacing: -1px; background-image: url(https://ci5.googleusercontent.com/proxy/uePTVeN_JgVYsynEuyhDhbtB0mD6pTiFux95naGYnCiLzO_SBt6a9vE8hEb0LMrlNECS1JSVZeGt9mZ5ERQSUV8Br9Z9sOisA5P1AQ0hHkT3ze3ZPNEfnyjoZKFuRuEy-21EDuAPoa8=s0-d-e1-ft#https://deermine.deerwalk.com/themes/deerwalk-blue/images/smooth-gradient-blue.jpg); background-color: rgb(234, 242, 245);\"><a href=\"{0}\"><font color=\"#444444\">{1}</font></a></h2></div></div>".format(deermine_base_link + deermine_id, commit_message.strip('\n')))
+        else:
+            out_file.write("<div><div style=\"color: rgb(34, 34, 34);\"><h2 style=\"font-family: 'Lucida Grande', verdana, arial, helvetica, sans-serif; padding: 12px 20px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(174, 204, 215); color: rgb(68, 68, 68); border-top-width: 1px; border-top-style: solid; border-top-color: white; border-top-left-radius: 8px; border-top-right-radius: 8px; letter-spacing: -1px; background-image: url(https://ci5.googleusercontent.com/proxy/uePTVeN_JgVYsynEuyhDhbtB0mD6pTiFux95naGYnCiLzO_SBt6a9vE8hEb0LMrlNECS1JSVZeGt9mZ5ERQSUV8Br9Z9sOisA5P1AQ0hHkT3ze3ZPNEfnyjoZKFuRuEy-21EDuAPoa8=s0-d-e1-ft#https://deermine.deerwalk.com/themes/deerwalk-blue/images/smooth-gradient-blue.jpg); background-color: rgb(234, 242, 245);\">{}</h2></div></div>".format(commit_message.strip('\n')))
+
         out_file.write("<div><br></div>")
 
         # Project
